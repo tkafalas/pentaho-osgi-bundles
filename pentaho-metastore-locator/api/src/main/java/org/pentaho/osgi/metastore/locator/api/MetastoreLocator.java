@@ -32,8 +32,21 @@ public interface MetastoreLocator {
   /**
    * Attempts to pick the best the MetaStore based on environment; either
    * the local or repository metastore.
-   * @return
+   * @return The metastore to use
    */
   IMetaStore getMetastore();
 
+  /**
+   * Registers a metastore provider that returns the received metastore with the current thread. {@link #getMetastore()}
+   * will used this metastore iff the repository and local metastore provider cannot be found.
+   * @param metastore
+   * @return
+   */
+  String setEmbeddedMetastore( IMetaStore metastore );
+
+  /**
+   * Dispose a metastore provider assciated with the providerKey
+   * @param providerKey The key to the metastore provider.
+   */
+  public void disposeMetaStoreProvider( String providerKey );
 }
